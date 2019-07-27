@@ -10,7 +10,7 @@ namespace WebChat.DataAccess.Domain
 		{
 		}
 
-		public string DefaultConnection { get; set; }
+		//public string DefaultConnection { get; set; }
 
 		//public DbSet<User> User { get; set; }
 

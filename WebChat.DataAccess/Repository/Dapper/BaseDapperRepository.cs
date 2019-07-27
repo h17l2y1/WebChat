@@ -13,7 +13,7 @@ using WebChat.DataAccess.Repository.Interfaces;
 
 namespace WebChat.DataAccess.Repository.Dapper
 {
-	public class MainGameDapperRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+	public class BaseDapperRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 	{
 		protected readonly string _tableName = $"{ typeof(TEntity).Name }s";
 		protected readonly string _connectionString;
@@ -22,7 +22,7 @@ namespace WebChat.DataAccess.Repository.Dapper
 			get { return new SqlConnection(_connectionString); }
 		}
 
-		public MainGameDapperRepository(IOptions<ConnectionStrings> connectionConfig)
+		public BaseDapperRepository(IOptions<ConnectionStrings> connectionConfig)
 		{
 			var connection = connectionConfig.Value;
 			_connectionString = connection.DefaultConnection;

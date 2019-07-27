@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebChat.DataAccess.Domain;
+using WebChat.DataAccess.Repository.Entity;
+using WebChat.DataAccess.Repository.Interfaces;
 using WebChat.Entities.Enums;
 
 namespace WebChat.DataAccess.Config
@@ -21,7 +23,7 @@ namespace WebChat.DataAccess.Config
 				services.AddDbContext<ApplicationContext>(options => options
 					.UseSqlServer(сonfiguration.GetSection("ConnectionStrings:DefaultConnection").Value));
 
-				//services.AddScoped<Interface, Repository>();
+				services.AddScoped<IUserRepository, UserEntityRepository>();
 			}
 
 			if (ORM == ORMType.Dapper.ToString())

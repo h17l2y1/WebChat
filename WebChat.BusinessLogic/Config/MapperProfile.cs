@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using WebChat.Entities.Entities;
+using WebChat.ViewModels.User;
 
 namespace WebChat.BusinessLogic.Config
 {
@@ -8,7 +7,7 @@ namespace WebChat.BusinessLogic.Config
 	{
 		public MapperProfile()
 		{
-			//CreateMap<SushiSet, SetView>().ReverseMap();
+			CreateMap<User, RequestSignUpAccount>().ReverseMap();
 
 		}
 	}
