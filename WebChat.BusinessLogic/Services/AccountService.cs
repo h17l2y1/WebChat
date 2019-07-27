@@ -33,17 +33,8 @@ namespace WebChat.BusinessLogic.Services
 		public async Task SignUp(RequestSignUpAccount view)
 		{
 			User user = _mapper.Map<User>(view);
-			try
-			{
-				await _userManager.CreateAsync(user);
-			}
-			catch (System.Exception ex)
-			{
 
-			}
-
-
-			//await _userRepository.Add(user);
+			await _userManager.CreateAsync(user);
 		}
 
 		//public async Task<TokenAccountView> LogIn(string userName)

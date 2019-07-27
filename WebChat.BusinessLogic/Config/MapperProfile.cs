@@ -7,7 +7,11 @@ namespace WebChat.BusinessLogic.Config
 	{
 		public MapperProfile()
 		{
-			CreateMap<User, RequestSignUpAccount>().ReverseMap();
+			//CreateMap<User, RequestSignUpAccount>().ReverseMap();
+
+
+			CreateMap<User, RequestSignUpAccount>().ReverseMap()
+				  .ForMember(x => x.UserName, x => x.MapFrom(m => m.Login));
 
 		}
 	}
