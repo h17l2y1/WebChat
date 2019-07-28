@@ -7,12 +7,12 @@ using WebChat.Entities.Entities;
 
 namespace WebChat.BusinessLogic.Hubs
 {
-	public class ChatHub : Hub
-	{
-		public async Task SendMessage(Message message) =>
-			await Clients.All.SendAsync("receive Message", message);
-		
+    public class ChatHub : Hub
+    {
+        public async Task SendMessage(Message message) =>
+            await Clients.All.SendAsync("receive Message", message);
 
-		
-	}
+
+
+    }
 }
