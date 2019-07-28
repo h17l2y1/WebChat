@@ -6,26 +6,26 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WebChat.BusinessLogic.Config;
-using WebChat.BusinessLogic.Providers.Interfaces;
+using WebChat.BusinessLogic.Helpres.Interfaces;
 using WebChat.Entities.Entities;
 
-namespace WebChat.BusinessLogic.Providers
+namespace WebChat.BusinessLogic.Helpres
 {
-	public class JwtTokenProvider : IJwtTokenProvider
+	public class JwtHelper : IJwtHelper
 	{
 		private readonly AuthOptions _authOptions;
 
-		public JwtTokenProvider(IOptions<AuthOptions> authOptions)
+		public JwtHelper(IOptions<AuthOptions> authOptions)
 		{
 			_authOptions = authOptions.Value;
 		}
 
 		public string GetToken(User user)
 		{
-			ClaimsIdentity userClaims = GetIdentity(user);
-			JwtSecurityToken jwt = GetToken(userClaims);
-			string stringToken = new JwtSecurityTokenHandler().WriteToken(jwt);
-			return stringToken;
+			ClaimsIdentity userClaims = GetClaims(user);
+			JwtSecurityToken token = GetToken(userClaims);
+			string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+			return tokenString;
 		}
 
 		private JwtSecurityToken GetToken(ClaimsIdentity identity)
@@ -41,7 +41,7 @@ namespace WebChat.BusinessLogic.Providers
 			return jwt;
 		}
 
-		private ClaimsIdentity GetIdentity(User user)
+		private ClaimsIdentity GetClaims(User user)
 		{
 			var claimsList = new List<Claim>
 				{
