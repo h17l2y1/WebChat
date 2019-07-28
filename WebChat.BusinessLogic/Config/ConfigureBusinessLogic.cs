@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using WebChat.BusinessLogic.Providers;
-using WebChat.BusinessLogic.Providers.Interfaces;
+using WebChat.BusinessLogic.Helpres;
+using WebChat.BusinessLogic.Helpres.Interfaces;
 using WebChat.BusinessLogic.Services;
 using WebChat.BusinessLogic.Services.Interfaces;
 using WebChat.DataAccess.Config;
@@ -24,12 +21,11 @@ namespace WebChat.BusinessLogic.Config
 			var mapper = config.CreateMapper();
 
 			services.AddSingleton(mapper);
+
 			services.InjectDataAccessDependency(сonfiguration);
-			//services.AddSignalRCore();
+			services.JwtSetup(сonfiguration);
 
 			services.AddIdentity<User, UserRole>().AddEntityFrameworkStores<ApplicationContext>();
-
-			JwtSettings(services, сonfiguration);
 
 
 			// Services;
@@ -37,40 +33,12 @@ namespace WebChat.BusinessLogic.Config
 
 
 			// Providers;
-			services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
 
-			
+
 			// Helpers;
+			services.AddScoped<IJwtHelper, JwtHelper>();
 
 
 		}
-
-		private static void JwtSettings(IServiceCollection services, IConfiguration сonfiguration)
-		{
-			var appSettingsSection = сonfiguration.GetSection("AuthOptions");
-			var appSettings = appSettingsSection.Get<AuthOptions>();
-			var byteKey = Encoding.ASCII.GetBytes(appSettings.Key);
-			services.AddAuthentication(options =>
-			{
-				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-			}).AddJwtBearer(options =>
-			{
-				options.RequireHttpsMetadata = false;
-				options.SaveToken = true;
-				options.TokenValidationParameters = new TokenValidationParameters
-				{
-					ValidateIssuer = true,
-					ValidateAudience = true,
-					ValidIssuer = appSettings.Issuer,
-					ValidAudience = appSettings.Audience,
-					ValidateLifetime = true,
-					IssuerSigningKey = new SymmetricSecurityKey(byteKey),
-					ValidateIssuerSigningKey = true,
-				};
-			});
-		}
-
 	}
 }

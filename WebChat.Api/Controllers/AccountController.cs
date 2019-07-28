@@ -23,5 +23,12 @@ namespace WebChat.Api.Controllers
 			return Ok();
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> LogIn([FromBody] RequestLogInAccount view)
+		{
+			var token = await _service.LogIn(view);
+			return Ok(token);
+		}
+
 	}
 }
