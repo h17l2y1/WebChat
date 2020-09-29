@@ -18,15 +18,10 @@ namespace WebChat.Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddCors();
+			// services.AddCors();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-
-			services.Configure<AuthOptions>(Configuration.GetSection("AuthOptions"));
-
-
 			services.InjectBusinessLogicDependency(Configuration);
-
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -39,10 +34,8 @@ namespace WebChat.Api
 			{
 				app.UseHsts();
 			}
-
-
+			
 			app.UseAuthentication();
-
 			app.UseHttpsRedirection();
 			app.UseMvc();
 		}

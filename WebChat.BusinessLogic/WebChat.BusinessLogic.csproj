@@ -19,8 +19,4 @@
     <ProjectReference Include="..\WebChat.ViewModels\WebChat.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Providers\" />
-  </ItemGroup>
-
 </Project>
